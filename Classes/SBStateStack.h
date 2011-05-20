@@ -1,19 +1,19 @@
 /*
- Copyright (C) 2009 Stig Brautaset. All rights reserved.
+ Copyright (C) 2011 Stig Brautaset. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
  
  * Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
+ list of conditions and the following disclaimer.
  
  * Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
  
  * Neither the name of the author nor the names of its contributors may be used
-   to endorse or promote products derived from this software without specific
-   prior written permission.
+ to endorse or promote products derived from this software without specific
+ prior written permission.
  
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -29,25 +29,18 @@
 
 #import <Foundation/Foundation.h>
 
-#pragma mark JSON Writing
 
-/// Adds JSON generation to NSObject
-@interface NSObject (NSObject_SBJsonWriting)
+@interface SBStateStack : NSObject {
+    @private
+    NSUInteger _count;
+    NSUInteger _capacity;
+    NSObject **_stack;
+}
 
-/// Returns a string containing the receiver encoded in JSON.
-- (NSString *)JSONRepresentation;
+@property(nonatomic, assign) NSUInteger count;
 
-@end
-
-
-#pragma mark JSON Parsing
-
-/// Adds JSON parsing methods to NSString
-@interface NSString (NSString_SBJsonParsing)
-
-/// Returns the NSDictionary or NSArray represented by the receiver's JSON representation, or nil on error
-- (id)JSONValue;
+- (id)initWithCapacity:(NSUInteger)capacity;
+- (void)push:(id)object;
+- (id)pop;
 
 @end
-
-
